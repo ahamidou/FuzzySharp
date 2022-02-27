@@ -2,14 +2,17 @@
 
 namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
 {
-    public abstract class SimpleRatioScorerBase : StrategySensitiveScorerBase
+    public abstract class SimpleRatioScorerBase : ScorerBase
     {
-        protected SimpleRatioScorerBase(IScoringStrategy scoringStrategy) : base(scoringStrategy)
+        private readonly IScoringStrategy _scoringStrategy;
+
+        protected SimpleRatioScorerBase(IScoringStrategy scoringStrategy)
         {
+            _scoringStrategy = scoringStrategy;
         }
         public override int Score(string input1, string input2)
         {
-            return ScoringStrategy.Calculate(input1, input2);
+            return _scoringStrategy.Calculate(input1, input2);
         }
     }
 }

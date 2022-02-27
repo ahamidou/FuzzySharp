@@ -5,10 +5,13 @@ using System.Text.RegularExpressions;
 
 namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
 {
-    public abstract class TokenSortScorerBase : StrategySensitiveScorerBase
+    public abstract class TokenSortScorerBase : ScorerBase
     {
-        protected TokenSortScorerBase(IScoringStrategy scoringStrategy) : base(scoringStrategy)
+        private readonly IScoringStrategy _scoringStrategy;
+
+        protected TokenSortScorerBase(IScoringStrategy scoringStrategy)
         {
+            _scoringStrategy = scoringStrategy;
         }
 
         public override int Score(string input1, string input2)
@@ -16,7 +19,7 @@ namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
             var sorted1 = String.Join(" ", Regex.Split(input1, @"\s+").Where(s => s.Any()).OrderBy(s => s)).Trim();
             var sorted2 = String.Join(" ", Regex.Split(input2, @"\s+").Where(s => s.Any()).OrderBy(s => s)).Trim();
 
-            return ScoringStrategy.Calculate(sorted1, sorted2);
+            return _scoringStrategy.Calculate(sorted1, sorted2);
         }
     }
 }

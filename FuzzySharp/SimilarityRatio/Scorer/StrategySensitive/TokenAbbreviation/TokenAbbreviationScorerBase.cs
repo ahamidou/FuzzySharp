@@ -6,10 +6,13 @@ using System.Text.RegularExpressions;
 
 namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
 {
-    public abstract class TokenAbbreviationScorerBase : StrategySensitiveScorerBase
+    public abstract class TokenAbbreviationScorerBase : ScorerBase
     {
-        protected TokenAbbreviationScorerBase(IScoringStrategy scoringStrategy) : base(scoringStrategy)
+        private readonly IScoringStrategy _scoringStrategy;
+
+        protected TokenAbbreviationScorerBase(IScoringStrategy scoringStrategy)
         {
+            _scoringStrategy = scoringStrategy;
         }
 
         public override int Score(string input1, string input2)
@@ -69,7 +72,7 @@ namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
                     var i2 = fewerTokens[i];
                     if (StringContainsInOrder(i1, i2)) // must be at least twice as long
                     {
-                        var score = ScoringStrategy.Calculate(i1, i2);
+                        var score = _scoringStrategy.Calculate(i1, i2);
                         sum += score;
                     }
                 }
