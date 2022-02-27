@@ -1,5 +1,4 @@
 ﻿using FuzzySharp.SimilarityRatio.Strategy.Generic;
-using System;
 
 namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
 {
@@ -11,6 +10,6 @@ namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
         {
         }
 
-        protected override Func<string[], string[], int> Scorer => DefaultRatioStrategy<string>.Calculate;
+        protected override int CreateSensitiveScorerScore(string[] input1, string[] input2) => DefaultRatioStrategy<string>.Calculate(input1, input2);
     }
 }
