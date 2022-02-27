@@ -9,7 +9,7 @@ namespace FuzzySharp
 {
     public static class Process
     {
-        private static readonly Func<string, string> s_defaultStringProcessor = StringPreprocessorFactory.GetPreprocessor(PreprocessMode.Full);
+        private static readonly Func<string, string> s_defaultStringProcessor = StringPreprocessorFactory.GetPreprocessor(LanguageProcessorType.English);
 
         /// <summary>
         /// Creates a list of ExtractedResult which contain all the choices with

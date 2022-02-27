@@ -21,7 +21,7 @@ namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
         }
 
 
-        public int Score(string input1, string input2, PreprocessMode preprocessMode)
+        public int Score(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             var preprocessor = StringPreprocessorFactory.GetPreprocessor(preprocessMode);
             input1 = preprocessor(input1);

@@ -5,27 +5,32 @@ namespace FuzzySharp.PreProcess
 {
     internal class StringPreprocessorFactory
     {
-        private static string pattern = "[^ a-zA-Z0-9]";
+        private static readonly Regex EnglishRegex = new Regex("[^0-9a-zA-Z]", RegexOptions.Compiled);
+        private static readonly Regex GermanRegex = new Regex("[^0-9a-zA-ZäöüßÄÖÜẞ]", RegexOptions.Compiled);
+        private static readonly Regex RussianRegex = new Regex("[^0-9a-zA-Zа-зА-З]", RegexOptions.Compiled);
 
-        private static string Default(string input)
+        public static Func<string, string> GetPreprocessor(LanguageProcessorType language)
         {
-            input = Regex.Replace(input, pattern, " ");
-            input = input.ToLower();
-
-            return input.Trim();
+            return language switch
+            {
+                LanguageProcessorType.NotSet => x => x,
+                LanguageProcessorType.English => ProcessEnglishString,
+                LanguageProcessorType.German => ProcessGermanString,
+                LanguageProcessorType.Russian => ProcessRussianString,
+                _ => throw new ArgumentOutOfRangeException(nameof(language)),
+            };
         }
 
-        public static Func<string, string> GetPreprocessor(PreprocessMode mode)
+        private static string ProcessEnglishString(string input) => ProcessString(input, EnglishRegex);
+
+        private static string ProcessGermanString(string input) => ProcessString(input, GermanRegex);
+
+        private static string ProcessRussianString(string input) => ProcessString(input, RussianRegex);
+
+        private static string ProcessString(string input, Regex regex)
         {
-            switch (mode)
-            {
-                case PreprocessMode.Full:
-                    return Default;
-                case PreprocessMode.None:
-                    return s => s;
-                default:
-                    throw new InvalidOperationException($"Invalid string preprocessor mode: {mode}");
-            }
+            input = EnglishRegex.Replace(input, " ");
+            return input.ToLowerInvariant().Trim();
         }
     }
 }

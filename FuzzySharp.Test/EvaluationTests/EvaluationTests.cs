@@ -30,8 +30,8 @@ namespace FuzzySharp.Test.EvaluationTests
             var f3 = Fuzz.TokenInitialismRatio("NASA", "National Aeronautics Space Administration, Kennedy Space Center, Cape Canaveral, Florida 32899");
             var f4 = Fuzz.PartialTokenInitialismRatio("NASA", "National Aeronautics Space Administration, Kennedy Space Center, Cape Canaveral, Florida 32899");
 
-            var g1 = Fuzz.TokenAbbreviationRatio("bl 420", "Baseline section 420", PreprocessMode.Full);
-            var g2 = Fuzz.PartialTokenAbbreviationRatio("bl 420", "Baseline section 420", PreprocessMode.Full);
+            var g1 = Fuzz.TokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageProcessorType.English);
+            var g2 = Fuzz.PartialTokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageProcessorType.English);
 
 
 

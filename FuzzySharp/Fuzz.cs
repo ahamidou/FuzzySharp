@@ -27,7 +27,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int Ratio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int Ratio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return DefaultRatioScorer.Instance.Score(input1, input2, preprocessMode);
         }
@@ -54,7 +54,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int PartialRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int PartialRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return PartialRatioScorer.Instance.Score(input1, input2, preprocessMode);
         }
@@ -81,7 +81,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int TokenSortRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int TokenSortRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return TokenSortScorer.Instance.Score(input1, input2, preprocessMode);
         }
@@ -108,7 +108,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int PartialTokenSortRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int PartialTokenSortRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return PartialTokenSortScorer.Instance.Score(input1, input2, preprocessMode);
         }
@@ -137,7 +137,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int TokenSetRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int TokenSetRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return TokenSetScorer.Instance.Score(input1, input2, preprocessMode);
         }
@@ -166,7 +166,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int PartialTokenSetRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int PartialTokenSetRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return PartialTokenSetScorer.Instance.Score(input1, input2, preprocessMode);
         }
@@ -191,7 +191,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int TokenDifferenceRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int TokenDifferenceRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return TokenDifferenceScorer.Instance.Score(input1, input2, preprocessMode);
         }
@@ -216,7 +216,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int PartialTokenDifferenceRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int PartialTokenDifferenceRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return PartialTokenDifferenceScorer.Instance.Score(input1, input2, preprocessMode);
         }
@@ -239,7 +239,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int TokenInitialismRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int TokenInitialismRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return TokenInitialismScorer.Instance.Score(input1, input2, preprocessMode);
         }
@@ -262,7 +262,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int PartialTokenInitialismRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int PartialTokenInitialismRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return PartialTokenInitialismScorer.Instance.Score(input1, input2);
         }
@@ -289,7 +289,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int TokenAbbreviationRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int TokenAbbreviationRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return TokenAbbreviationScorer.Instance.Score(input1, input2, preprocessMode);
         }
@@ -316,7 +316,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int PartialTokenAbbreviationRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int PartialTokenAbbreviationRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return PartialTokenAbbreviationScorer.Instance.Score(input1, input2, preprocessMode);
         }
@@ -339,7 +339,7 @@ namespace FuzzySharp
         /// <param name="input2"></param>
         /// <param name="preprocessMode"></param>
         /// <returns></returns>
-        public static int WeightedRatio(string input1, string input2, PreprocessMode preprocessMode)
+        public static int WeightedRatio(string input1, string input2, LanguageProcessorType preprocessMode)
         {
             return WeightedRatioScorer.Instance.Score(input1, input2, preprocessMode);
         }
