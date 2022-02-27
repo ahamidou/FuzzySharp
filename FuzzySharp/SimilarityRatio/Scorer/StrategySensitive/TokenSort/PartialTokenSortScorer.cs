@@ -1,5 +1,4 @@
 ﻿using FuzzySharp.SimilarityRatio.Strategy;
-using System;
 
 namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
 {
@@ -7,10 +6,8 @@ namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
     {
         public static readonly IRatioScorer Instance = new PartialTokenSortScorer();
 
-        private PartialTokenSortScorer()
+        private PartialTokenSortScorer() : base(PartialRatioStrategy.Instance)
         {
         }
-
-        protected override Func<string, string, int> Scorer => PartialRatioStrategy.Calculate;
     }
 }

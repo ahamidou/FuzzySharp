@@ -2,9 +2,15 @@
 
 namespace FuzzySharp.SimilarityRatio.Strategy
 {
-    internal class DefaultRatioStrategy
+    internal class DefaultRatioStrategy : IScoringStrategy
     {
-        public static int Calculate(string input1, string input2)
+        internal static readonly IScoringStrategy Instance = new DefaultRatioStrategy();
+
+        private DefaultRatioStrategy()
+        {
+        }
+
+        public int Calculate(string input1, string input2)
         {
             if (input1.Length == 0 || input2.Length == 0)
             {
