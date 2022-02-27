@@ -54,7 +54,7 @@ namespace FuzzySharp.Test.FuzzyTests
         public void Test_Case_Insensitive()
         {
             Assert.AreNotEqual(Fuzz.Ratio(_s1, _s2), 100);
-            Assert.AreEqual(Fuzz.Ratio(_s1, _s2, LanguageProcessorType.English), 100);
+            Assert.AreEqual(Fuzz.Ratio(_s1, _s2, LanguageSanitizerType.English), 100);
         }
 
         [Test]
@@ -72,10 +72,10 @@ namespace FuzzySharp.Test.FuzzyTests
         [Test]
         public void TestPartialTokenSortRatio()
         {
-            Assert.AreEqual(Fuzz.PartialTokenSortRatio(_s1, _s1A, LanguageProcessorType.English), 100);
-            Assert.AreEqual(Fuzz.PartialTokenSortRatio(_s4, _s5, LanguageProcessorType.English), 100);
+            Assert.AreEqual(Fuzz.PartialTokenSortRatio(_s1, _s1A, LanguageSanitizerType.English), 100);
+            Assert.AreEqual(Fuzz.PartialTokenSortRatio(_s4, _s5, LanguageSanitizerType.English), 100);
             Assert.AreEqual(Fuzz.PartialTokenSortRatio(_s8, _s8A), 100);
-            Assert.AreEqual(Fuzz.PartialTokenSortRatio(_s9, _s9A, LanguageProcessorType.English), 100);
+            Assert.AreEqual(Fuzz.PartialTokenSortRatio(_s9, _s9A, LanguageSanitizerType.English), 100);
             Assert.AreEqual(Fuzz.PartialTokenSortRatio(_s9, _s9A), 100);
             Assert.AreEqual(Fuzz.PartialTokenSortRatio(_s10, _s10A), 50);
         }
@@ -83,9 +83,9 @@ namespace FuzzySharp.Test.FuzzyTests
         [Test]
         public void TestTokenSetRatio()
         {
-            Assert.AreEqual(Fuzz.TokenSetRatio(_s4, _s5, LanguageProcessorType.English), 100);
+            Assert.AreEqual(Fuzz.TokenSetRatio(_s4, _s5, LanguageSanitizerType.English), 100);
             Assert.AreEqual(Fuzz.TokenSetRatio(_s8, _s8A), 100);
-            Assert.AreEqual(Fuzz.TokenSetRatio(_s9, _s9A, LanguageProcessorType.English), 100);
+            Assert.AreEqual(Fuzz.TokenSetRatio(_s9, _s9A, LanguageSanitizerType.English), 100);
             Assert.AreEqual(Fuzz.TokenSetRatio(_s9, _s9A), 100);
             Assert.AreEqual(Fuzz.TokenSetRatio(_s10, _s10A), 50);
         }
@@ -93,8 +93,8 @@ namespace FuzzySharp.Test.FuzzyTests
         [Test]
         public void TestTokenAbbreviationRatio()
         {
-            Assert.AreEqual(Fuzz.TokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageProcessorType.English), 40);
-            Assert.AreEqual(Fuzz.PartialTokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageProcessorType.English), 50);
+            Assert.AreEqual(Fuzz.TokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageSanitizerType.English), 40);
+            Assert.AreEqual(Fuzz.PartialTokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageSanitizerType.English), 50);
         }
 
         [Test]
@@ -112,7 +112,7 @@ namespace FuzzySharp.Test.FuzzyTests
         [Test]
         public void TestWeightedRatioCaseInsensitive()
         {
-            Assert.AreEqual(Fuzz.WeightedRatio(_s1, _s2, LanguageProcessorType.English), 100);
+            Assert.AreEqual(Fuzz.WeightedRatio(_s1, _s2, LanguageSanitizerType.English), 100);
         }
 
         [Test]

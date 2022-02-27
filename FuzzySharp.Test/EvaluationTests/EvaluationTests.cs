@@ -30,8 +30,8 @@ namespace FuzzySharp.Test.EvaluationTests
             var f3 = Fuzz.TokenInitialismRatio("NASA", "National Aeronautics Space Administration, Kennedy Space Center, Cape Canaveral, Florida 32899");
             var f4 = Fuzz.PartialTokenInitialismRatio("NASA", "National Aeronautics Space Administration, Kennedy Space Center, Cape Canaveral, Florida 32899");
 
-            var g1 = Fuzz.TokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageProcessorType.English);
-            var g2 = Fuzz.PartialTokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageProcessorType.English);
+            var g1 = Fuzz.TokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageSanitizerType.English);
+            var g2 = Fuzz.PartialTokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageSanitizerType.English);
 
 
 
@@ -41,7 +41,7 @@ namespace FuzzySharp.Test.EvaluationTests
             var h4 = string.Join(", ", Process.ExtractAll("goolge", new[] { "google", "bing", "facebook", "linkedin", "twitter", "googleplus", "bingnews", "plexoogl" }, cutoff: 40));
             var h5 = string.Join(", ", Process.ExtractSorted("goolge", new[] { "google", "bing", "facebook", "linkedin", "twitter", "googleplus", "bingnews", "plexoogl" }));
 
-            var i1 = Process.ExtractOne("cowboys", new[] { "Atlanta Falcons", "New York Jets", "New York Giants", "Dallas Cowboys" }, s => s, DefaultRatioScorer.Instance);
+            var i1 = Process.ExtractOne("cowboys", new[] { "Atlanta Falcons", "New York Jets", "New York Giants", "Dallas Cowboys" }, new NoSanitization(), DefaultRatioScorer.Instance);
 
             var events = new[]
             {
@@ -51,7 +51,7 @@ namespace FuzzySharp.Test.EvaluationTests
             };
             var query = new[] { "new york mets vs chicago cubs", "CitiField", "2017-03-19", "8pm" };
 
-            var best = Process.ExtractOne(query, events, strings => strings[0]);
+            var best = Process.ExtractOne(query, events, new ArraySanitizer());
 
             var ratio = DefaultRatioScorer.Instance;
             var partial = PartialRatioScorer.Instance;
@@ -76,6 +76,16 @@ namespace FuzzySharp.Test.EvaluationTests
 
             // assert
             Assert.IsTrue(ratio >= 0);
+        }
+
+        private class NoSanitization : ILanguageSanitizer<string>
+        {
+            public string Sanitize(string input) => input;
+        }
+
+        internal class ArraySanitizer : ILanguageSanitizer<string[]>
+        {
+            public string Sanitize(string[] input) => input[0];
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using FuzzySharp.SimilarityRatio.Scorer.StrategySensitive;
 using NUnit.Framework;
+using static FuzzySharp.Test.EvaluationTests.EvaluationTests;
 
 namespace FuzzySharp.Test.FuzzyTests
 {
@@ -69,7 +70,7 @@ namespace FuzzySharp.Test.FuzzyTests
             };
             var query = new[] { "new york mets vs chicago cubs", "CitiField", "2017-03-19", "8pm" };
 
-            var best = Process.ExtractOne(query, events, strings => strings[0]);
+            var best = Process.ExtractOne(query, events, new ArraySanitizer());
             Assert.AreEqual(best.Value, events[0]);
         }
 
