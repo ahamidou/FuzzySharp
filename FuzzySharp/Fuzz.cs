@@ -6,7 +6,6 @@ namespace FuzzySharp
 {
     public static class Fuzz
     {
-
         /// <summary>
         /// Calculates a Levenshtein simple ratio between the strings.
         /// This indicates a measure of similarity
@@ -264,7 +263,7 @@ namespace FuzzySharp
         /// <returns></returns>
         public static int PartialTokenInitialismRatio(string input1, string input2, LanguageSanitizerType preprocessMode)
         {
-            return PartialTokenInitialismScorer.Instance.Score(input1, input2);
+            return PartialTokenInitialismScorer.Instance.Score(input1, input2, preprocessMode);
         }
 
         /// <summary>
@@ -343,6 +342,5 @@ namespace FuzzySharp
         {
             return WeightedRatioScorer.Instance.Score(input1, input2, preprocessMode);
         }
-
     }
 }

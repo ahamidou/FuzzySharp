@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using FuzzySharp.Extractor;
+﻿using FuzzySharp.Extractor;
 using FuzzySharp.PreProcess;
 using FuzzySharp.SimilarityRatio.Scorer;
 using FuzzySharp.SimilarityRatio.Scorer.Composite;
+using System.Collections.Generic;
 
 namespace FuzzySharp
 {
@@ -69,7 +69,6 @@ namespace FuzzySharp
         {
             return ResultExtractor.ExtractTop(query, choices, languageSanitizer ?? EnglishLanguageSanitizer.Instance, scorer ?? WeightedRatioScorer.Instance, limit, cutoff);
         }
-
 
         /// <summary>
         /// Creates a sorted list of ExtractedResult  which contain the
@@ -179,6 +178,5 @@ namespace FuzzySharp
         {
             return ResultExtractor.ExtractOne(query, choices, EnglishLanguageSanitizer.Instance, WeightedRatioScorer.Instance);
         }
-
     }
 }
