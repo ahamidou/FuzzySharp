@@ -1,12 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using FuzzySharp.SimilarityRatio.Strategy;
+using FuzzySharp.Utils;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using FuzzySharp.Utils;
 
 namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
 {
-    public abstract class TokenAbbreviationScorerBase : StrategySensitiveScorerBase
+    public abstract class TokenAbbreviationScorerBase : ScorerBase
     {
+        private readonly IScoringStrategy _scoringStrategy;
+
+        protected TokenAbbreviationScorerBase(IScoringStrategy scoringStrategy)
+        {
+            _scoringStrategy = scoringStrategy;
+        }
+
         public override int Score(string input1, string input2)
         {
             string shorter;
@@ -15,12 +23,12 @@ namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
             if (input1.Length < input2.Length)
             {
                 shorter = input1;
-                longer  = input2;
+                longer = input2;
             }
             else
             {
                 shorter = input2;
-                longer  = input1;
+                longer = input1;
             }
 
             double lenRatio = ((double)longer.Length) / shorter.Length;
@@ -64,14 +72,14 @@ namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
                     var i2 = fewerTokens[i];
                     if (StringContainsInOrder(i1, i2)) // must be at least twice as long
                     {
-                        var score = Scorer(i1, i2);
+                        var score = _scoringStrategy.Calculate(i1, i2);
                         sum += score;
                     }
                 }
-                allScores.Add((int) (sum / fewerTokens.Length));
+                allScores.Add((int)(sum / fewerTokens.Length));
             }
-            
-            return allScores.Count==0?0:allScores.Max();
+
+            return allScores.Count == 0 ? 0 : allScores.Max();
         }
 
         /// <summary>

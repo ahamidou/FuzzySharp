@@ -1,10 +1,13 @@
-﻿using System;
-using FuzzySharp.SimilarityRatio.Strategy;
+﻿using FuzzySharp.SimilarityRatio.Strategy;
 
 namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
 {
     public class PartialTokenInitialismScorer : TokenInitialismScorerBase
     {
-        protected override Func<string, string, int> Scorer => PartialRatioStrategy.Calculate;
+        public static readonly IRatioScorer Instance = new PartialTokenInitialismScorer();
+
+        private PartialTokenInitialismScorer() : base(PartialRatioStrategy.Instance)
+        {
+        }
     }
 }

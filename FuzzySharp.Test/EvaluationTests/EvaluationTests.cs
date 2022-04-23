@@ -1,5 +1,4 @@
 ﻿using FuzzySharp.PreProcess;
-using FuzzySharp.SimilarityRatio;
 using FuzzySharp.SimilarityRatio.Scorer.Composite;
 using FuzzySharp.SimilarityRatio.Scorer.StrategySensitive;
 using NUnit.Framework;
@@ -31,18 +30,18 @@ namespace FuzzySharp.Test.EvaluationTests
             var f3 = Fuzz.TokenInitialismRatio("NASA", "National Aeronautics Space Administration, Kennedy Space Center, Cape Canaveral, Florida 32899");
             var f4 = Fuzz.PartialTokenInitialismRatio("NASA", "National Aeronautics Space Administration, Kennedy Space Center, Cape Canaveral, Florida 32899");
 
-            var g1 = Fuzz.TokenAbbreviationRatio("bl 420", "Baseline section 420", PreprocessMode.Full);
-            var g2 = Fuzz.PartialTokenAbbreviationRatio("bl 420", "Baseline section 420", PreprocessMode.Full);
+            var g1 = Fuzz.TokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageProcessorType.English);
+            var g2 = Fuzz.PartialTokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageProcessorType.English);
 
 
 
             var h1 = Process.ExtractOne("cowboys", new[] { "Atlanta Falcons", "New York Jets", "New York Giants", "Dallas Cowboys" });
             var h2 = string.Join(", ", Process.ExtractTop("goolge", new[] { "google", "bing", "facebook", "linkedin", "twitter", "googleplus", "bingnews", "plexoogl" }, limit: 3));
-            var h3 = string.Join(", ", Process.ExtractAll("goolge", new [] {"google", "bing", "facebook", "linkedin", "twitter", "googleplus", "bingnews", "plexoogl" }));
+            var h3 = string.Join(", ", Process.ExtractAll("goolge", new[] { "google", "bing", "facebook", "linkedin", "twitter", "googleplus", "bingnews", "plexoogl" }));
             var h4 = string.Join(", ", Process.ExtractAll("goolge", new[] { "google", "bing", "facebook", "linkedin", "twitter", "googleplus", "bingnews", "plexoogl" }, cutoff: 40));
-            var h5 = string.Join(", ", Process.ExtractSorted("goolge", new [] {"google", "bing", "facebook", "linkedin", "twitter", "googleplus", "bingnews", "plexoogl" }));
+            var h5 = string.Join(", ", Process.ExtractSorted("goolge", new[] { "google", "bing", "facebook", "linkedin", "twitter", "googleplus", "bingnews", "plexoogl" }));
 
-            var i1 = Process.ExtractOne("cowboys", new[] { "Atlanta Falcons", "New York Jets", "New York Giants", "Dallas Cowboys" }, s => s, ScorerCache.Get<DefaultRatioScorer>());
+            var i1 = Process.ExtractOne("cowboys", new[] { "Atlanta Falcons", "New York Jets", "New York Giants", "Dallas Cowboys" }, new NoSanitization(), DefaultRatioScorer.Instance);
 
             var events = new[]
             {
@@ -52,17 +51,17 @@ namespace FuzzySharp.Test.EvaluationTests
             };
             var query = new[] { "new york mets vs chicago cubs", "CitiField", "2017-03-19", "8pm" };
 
-            var best = Process.ExtractOne(query, events, strings => strings[0]);
+            var best = Process.ExtractOne(query, events, new ArraySanitizer());
 
-            var ratio = ScorerCache.Get<DefaultRatioScorer>();
-            var partial = ScorerCache.Get<PartialRatioScorer>();
-            var tokenSet = ScorerCache.Get<TokenSetScorer>();
-            var partialTokenSet = ScorerCache.Get<PartialTokenSetScorer>();
-            var tokenSort = ScorerCache.Get<TokenSortScorer>();
-            var partialTokenSort = ScorerCache.Get<PartialTokenSortScorer>();
-            var tokenAbbreviation = ScorerCache.Get<TokenAbbreviationScorer>();
-            var partialTokenAbbreviation = ScorerCache.Get<PartialTokenAbbreviationScorer>();
-            var weighted = ScorerCache.Get<WeightedRatioScorer>();
+            var ratio = DefaultRatioScorer.Instance;
+            var partial = PartialRatioScorer.Instance;
+            var tokenSet = TokenSetScorer.Instance;
+            var partialTokenSet = PartialTokenSetScorer.Instance;
+            var tokenSort = TokenSortScorer.Instance;
+            var partialTokenSort = PartialTokenSortScorer.Instance;
+            var tokenAbbreviation = TokenAbbreviationScorer.Instance;
+            var partialTokenAbbreviation = PartialTokenAbbreviationScorer.Instance;
+            var weighted = WeightedRatioScorer.Instance;
         }
 
         [Test]
@@ -77,6 +76,16 @@ namespace FuzzySharp.Test.EvaluationTests
 
             // assert
             Assert.IsTrue(ratio >= 0);
+        }
+
+        private class NoSanitization : IProcessLanguage<string>
+        {
+            public string Sanitize(string input) => input;
+        }
+
+        internal class ArraySanitizer : IProcessLanguage<string[]>
+        {
+            public string Sanitize(string[] input) => input[0];
         }
     }
 }

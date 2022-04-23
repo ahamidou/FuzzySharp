@@ -1,13 +1,24 @@
-﻿using System;
+﻿using FuzzySharp.Edits;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using FuzzySharp.Edits;
 
 namespace FuzzySharp.SimilarityRatio.Strategy
 {
-    internal class PartialRatioStrategy
+    public interface IScoringStrategy
     {
-        public static int Calculate(string input1, string input2)
+        int Calculate(string input1, string input2);
+    }
+
+    internal class PartialRatioStrategy : IScoringStrategy
+    {
+        internal static readonly IScoringStrategy Instance = new PartialRatioStrategy();
+
+        private PartialRatioStrategy()
+        {
+        }
+
+        public int Calculate(string input1, string input2)
         {
             string shorter;
             string longer;
@@ -20,12 +31,12 @@ namespace FuzzySharp.SimilarityRatio.Strategy
             if (input1.Length < input2.Length)
             {
                 shorter = input1;
-                longer  = input2;
+                longer = input2;
             }
             else
             {
                 shorter = input2;
-                longer  = input1;
+                longer = input1;
             }
 
             MatchingBlock[] matchingBlocks = Levenshtein.GetMatchingBlocks(shorter, longer);
@@ -37,7 +48,7 @@ namespace FuzzySharp.SimilarityRatio.Strategy
                 int dist = matchingBlock.DestPos - matchingBlock.SourcePos;
 
                 int longStart = dist > 0 ? dist : 0;
-                int longEnd   = longStart + shorter.Length;
+                int longEnd = longStart + shorter.Length;
 
                 if (longEnd > longer.Length) longEnd = longer.Length;
 
@@ -51,7 +62,6 @@ namespace FuzzySharp.SimilarityRatio.Strategy
                 }
 
                 scores.Add(ratio);
-
             }
 
             return (int)Math.Round(100 * scores.Max());

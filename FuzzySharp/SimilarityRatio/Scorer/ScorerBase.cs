@@ -6,11 +6,11 @@ namespace FuzzySharp.SimilarityRatio.Scorer
     {
         public abstract int Score(string input1, string input2);
 
-        public int Score(string input1, string input2, PreprocessMode preprocessMode)
+        public int Score(string input1, string input2, LanguageProcessorType languageSanitizerType)
         {
-            var preprocessor = StringPreprocessorFactory.GetPreprocessor(preprocessMode);
-            input1 = preprocessor(input1);
-            input2 = preprocessor(input2);
+            var languageSanitizer = LanguageProcessorFactory.Create(languageSanitizerType);
+            input1 = languageSanitizer.Sanitize(input1);
+            input2 = languageSanitizer.Sanitize(input2);
             return Score(input1, input2);
         }
     }

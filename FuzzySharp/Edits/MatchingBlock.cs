@@ -1,14 +1,16 @@
 ﻿namespace FuzzySharp.Edits
 {
-    public class MatchingBlock
+    public readonly struct MatchingBlock
     {
-        public int SourcePos { get; set; }
-        public int DestPos { get; set; }
-        public int Length { get; set; }
-
-        public override string ToString()
+        public MatchingBlock(int sourcePos, int destPos, int length)
         {
-            return $"({SourcePos},{DestPos},{Length})";
+            SourcePos = sourcePos;
+            DestPos = destPos;
+            Length = length;
         }
+
+        public readonly int SourcePos;
+        public readonly int DestPos;
+        public readonly int Length;
     }
 }

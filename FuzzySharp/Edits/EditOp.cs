@@ -9,15 +9,16 @@
         KEEP = 4,
     }
 
-    public class EditOp
+    public readonly struct EditOp
     {
-        public EditType EditType { get; set; }
-        public int SourcePos { get; set; }
-        public int DestPos { get; set; }
-
-        public override string ToString()
+        public EditOp(int source, int dest, EditType type)
         {
-            return $"{EditType}({SourcePos}, {DestPos})";
+            SourcePos = source;
+            DestPos = dest;
+            EditType = type;
         }
+        public readonly EditType EditType;
+        public readonly int SourcePos;
+        public readonly int DestPos;
     }
 }
