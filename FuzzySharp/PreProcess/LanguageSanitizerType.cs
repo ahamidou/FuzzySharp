@@ -1,6 +1,6 @@
 ﻿namespace FuzzySharp.PreProcess
 {    
-    public enum LanguageSanitizerType
+    public enum LanguageProcessorType
     {
         NotSet = 0,
         English = 1,

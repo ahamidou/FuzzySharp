@@ -21,11 +21,11 @@ namespace FuzzySharp
         public static IEnumerable<ExtractedResult<string>> ExtractAll(
             string query,
             IEnumerable<string> choices,
-            ILanguageSanitizer<string> languageSanitizer = null,
+            IProcessLanguage<string> languageSanitizer = null,
             IRatioScorer scorer = null,
             int cutoff = 0)
         {
-            return ResultExtractor.ExtractWithoutOrder(query, choices, languageSanitizer ?? EnglishLanguageSanitizer.Instance, scorer ?? WeightedRatioScorer.Instance, cutoff);
+            return ResultExtractor.ExtractWithoutOrder(query, choices, languageSanitizer ?? EnglishLanguageProcessor.Instance, scorer ?? WeightedRatioScorer.Instance, cutoff);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace FuzzySharp
         public static IEnumerable<ExtractedResult<T>> ExtractAll<T>(
             T query,
             IEnumerable<T> choices,
-            ILanguageSanitizer<T> languageSanitizer,
+            IProcessLanguage<T> languageSanitizer,
             IRatioScorer scorer = null,
             int cutoff = 0)
         {
@@ -62,12 +62,12 @@ namespace FuzzySharp
         public static IEnumerable<ExtractedResult<string>> ExtractTop(
             string query,
             IEnumerable<string> choices,
-            ILanguageSanitizer<string> languageSanitizer = null,
+            IProcessLanguage<string> languageSanitizer = null,
             IRatioScorer scorer = null,
             int limit = 5,
             int cutoff = 0)
         {
-            return ResultExtractor.ExtractTop(query, choices, languageSanitizer ?? EnglishLanguageSanitizer.Instance, scorer ?? WeightedRatioScorer.Instance, limit, cutoff);
+            return ResultExtractor.ExtractTop(query, choices, languageSanitizer ?? EnglishLanguageProcessor.Instance, scorer ?? WeightedRatioScorer.Instance, limit, cutoff);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace FuzzySharp
         public static IEnumerable<ExtractedResult<T>> ExtractTop<T>(
             T query,
             IEnumerable<T> choices,
-            ILanguageSanitizer<T> languageSanitizer,
+            IProcessLanguage<T> languageSanitizer,
             IRatioScorer scorer = null,
             int limit = 5,
             int cutoff = 0)
@@ -104,11 +104,11 @@ namespace FuzzySharp
         public static IEnumerable<ExtractedResult<string>> ExtractSorted(
             string query,
             IEnumerable<string> choices,
-            ILanguageSanitizer<string> languageSanitizer = null,
+            IProcessLanguage<string> languageSanitizer = null,
             IRatioScorer scorer = null,
             int cutoff = 0)
         {
-            return ResultExtractor.ExtractSorted(query, choices, languageSanitizer ?? EnglishLanguageSanitizer.Instance, scorer ?? WeightedRatioScorer.Instance, cutoff);
+            return ResultExtractor.ExtractSorted(query, choices, languageSanitizer ?? EnglishLanguageProcessor.Instance, scorer ?? WeightedRatioScorer.Instance, cutoff);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace FuzzySharp
         public static IEnumerable<ExtractedResult<T>> ExtractSorted<T>(
             T query,
             IEnumerable<T> choices,
-            ILanguageSanitizer<T> languageSanitizer,
+            IProcessLanguage<T> languageSanitizer,
             IRatioScorer scorer = null,
             int cutoff = 0)
         {
@@ -142,11 +142,11 @@ namespace FuzzySharp
         public static ExtractedResult<string> ExtractOne(
             string query,
             IEnumerable<string> choices,
-            ILanguageSanitizer<string> languageSanitizer = null,
+            IProcessLanguage<string> languageSanitizer = null,
             IRatioScorer scorer = null,
             int cutoff = 0)
         {
-            return ResultExtractor.ExtractOne(query, choices, languageSanitizer ?? EnglishLanguageSanitizer.Instance, scorer ?? WeightedRatioScorer.Instance, cutoff);
+            return ResultExtractor.ExtractOne(query, choices, languageSanitizer ?? EnglishLanguageProcessor.Instance, scorer ?? WeightedRatioScorer.Instance, cutoff);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace FuzzySharp
         public static ExtractedResult<T> ExtractOne<T>(
             T query,
             IEnumerable<T> choices,
-            ILanguageSanitizer<T> languageSanitizer,
+            IProcessLanguage<T> languageSanitizer,
             IRatioScorer scorer = null,
             int cutoff = 0)
         {
@@ -176,7 +176,7 @@ namespace FuzzySharp
         /// <returns></returns>
         public static ExtractedResult<string> ExtractOne(string query, params string[] choices)
         {
-            return ResultExtractor.ExtractOne(query, choices, EnglishLanguageSanitizer.Instance, WeightedRatioScorer.Instance);
+            return ResultExtractor.ExtractOne(query, choices, EnglishLanguageProcessor.Instance, WeightedRatioScorer.Instance);
         }
     }
 }

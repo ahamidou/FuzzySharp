@@ -21,9 +21,9 @@ namespace FuzzySharp.SimilarityRatio.Scorer.StrategySensitive
         }
 
 
-        public int Score(string input1, string input2, LanguageSanitizerType languageSanitizerType)
+        public int Score(string input1, string input2, LanguageProcessorType languageSanitizerType)
         {
-            var languageSanitizer = LanguageSanitizerFactory.Create(languageSanitizerType);
+            var languageSanitizer = LanguageProcessorFactory.Create(languageSanitizerType);
             input1 = languageSanitizer.Sanitize(input1);
             input2 = languageSanitizer.Sanitize(input2);
 

@@ -30,8 +30,8 @@ namespace FuzzySharp.Test.EvaluationTests
             var f3 = Fuzz.TokenInitialismRatio("NASA", "National Aeronautics Space Administration, Kennedy Space Center, Cape Canaveral, Florida 32899");
             var f4 = Fuzz.PartialTokenInitialismRatio("NASA", "National Aeronautics Space Administration, Kennedy Space Center, Cape Canaveral, Florida 32899");
 
-            var g1 = Fuzz.TokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageSanitizerType.English);
-            var g2 = Fuzz.PartialTokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageSanitizerType.English);
+            var g1 = Fuzz.TokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageProcessorType.English);
+            var g2 = Fuzz.PartialTokenAbbreviationRatio("bl 420", "Baseline section 420", LanguageProcessorType.English);
 
 
 
@@ -78,12 +78,12 @@ namespace FuzzySharp.Test.EvaluationTests
             Assert.IsTrue(ratio >= 0);
         }
 
-        private class NoSanitization : ILanguageSanitizer<string>
+        private class NoSanitization : IProcessLanguage<string>
         {
             public string Sanitize(string input) => input;
         }
 
-        internal class ArraySanitizer : ILanguageSanitizer<string[]>
+        internal class ArraySanitizer : IProcessLanguage<string[]>
         {
             public string Sanitize(string[] input) => input[0];
         }

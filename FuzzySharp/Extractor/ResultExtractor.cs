@@ -9,7 +9,7 @@ namespace FuzzySharp.Extractor
 {
     public static class ResultExtractor
     {
-        public static IEnumerable<ExtractedResult<T>> ExtractWithoutOrder<T>(T query, IEnumerable<T> choices, ILanguageSanitizer<T> languageSanitizer, IRatioScorer scorer, int cutoff = 0)
+        public static IEnumerable<ExtractedResult<T>> ExtractWithoutOrder<T>(T query, IEnumerable<T> choices, IProcessLanguage<T> languageSanitizer, IRatioScorer scorer, int cutoff = 0)
         {
             int index = 0;
             var sanitizedQuery = languageSanitizer.Sanitize(query);
@@ -24,17 +24,17 @@ namespace FuzzySharp.Extractor
             }
         }
 
-        public static ExtractedResult<T> ExtractOne<T>(T query, IEnumerable<T> choices, ILanguageSanitizer<T> languageSanitizer, IRatioScorer calculator, int cutoff = 0)
+        public static ExtractedResult<T> ExtractOne<T>(T query, IEnumerable<T> choices, IProcessLanguage<T> languageSanitizer, IRatioScorer calculator, int cutoff = 0)
         {
             return ExtractWithoutOrder(query, choices, languageSanitizer, calculator, cutoff).Max();
         }
 
-        public static IEnumerable<ExtractedResult<T>> ExtractSorted<T>(T query, IEnumerable<T> choices, ILanguageSanitizer<T> languageSanitizer, IRatioScorer calculator, int cutoff = 0)
+        public static IEnumerable<ExtractedResult<T>> ExtractSorted<T>(T query, IEnumerable<T> choices, IProcessLanguage<T> languageSanitizer, IRatioScorer calculator, int cutoff = 0)
         {
             return ExtractWithoutOrder(query, choices, languageSanitizer, calculator, cutoff).OrderByDescending(r => r.Score);
         }
 
-        public static IEnumerable<ExtractedResult<T>> ExtractTop<T>(T query, IEnumerable<T> choices, ILanguageSanitizer<T> languageSanitizer, IRatioScorer calculator, int limit, int cutoff = 0)
+        public static IEnumerable<ExtractedResult<T>> ExtractTop<T>(T query, IEnumerable<T> choices, IProcessLanguage<T> languageSanitizer, IRatioScorer calculator, int limit, int cutoff = 0)
         {
             return ExtractWithoutOrder(query, choices, languageSanitizer, calculator, cutoff).MaxN(limit).Reverse();
         }
